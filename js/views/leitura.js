@@ -5,6 +5,7 @@ import { abrirFolha, fecharFolha } from '../sheet.js';
 import { abrirOpcoesLeitura } from './opcoes.js';
 import { abrirCompartilhar } from './compartilhar.js';
 import { ORNAMENTO } from '../arte.js';
+import { botoesLeitor, montarLeitor } from './leitor.js';
 
 /** Capítulo anterior/próximo, passando de um livro para o outro. */
 async function vizinhos(id, cap) {
@@ -54,6 +55,7 @@ export async function telaLeitura(id, cap, vsDestaque) {
         <button class="icone" id="aa" aria-label="Tamanho da letra e aparência" style="font-size:17px;font-weight:600">Aa</button>
       </header>
       <div class="cap-titulo" aria-hidden="true"><span>${esc(l.nome)}</span><strong>${cap}</strong>${ORNAMENTO}</div>
+      ${botoesLeitor()}
       <article class="leitura" lang="pt-BR" aria-label="${esc(l.nome)} capítulo ${cap}">${htmlVersos}</article>
       <footer class="rodape-cap">
         <a href="${viz.ant ? `#/ler/${viz.ant.livro}/${viz.ant.cap}` : '#/'}" aria-disabled="${!viz.ant}">${ICONE.voltar}${esc(rotuloCurto(viz.ant, id))}</a>
@@ -62,6 +64,11 @@ export async function telaLeitura(id, cap, vsDestaque) {
       </footer>`,
     montar(el) {
       el.querySelector('#aa').addEventListener('click', () => abrirOpcoesLeitura());
+      montarLeitor(el, {
+        versos,
+        titulo: `${l.nome}, capítulo ${cap}`,
+        proximo: viz.prox ? `#/ler/${viz.prox.livro}/${viz.prox.cap}` : null,
+      });
 
       const bLido = el.querySelector('#lido');
       bLido.addEventListener('click', () => {

@@ -283,3 +283,20 @@ body.com-folha .view { padding-bottom: 380px; }
 .grade a.atual { box-shadow: 0 6px 16px -8px var(--ouro); }
 .hino-linha .num { background: var(--accent-soft); }
 .btn.primario, .acoes button.primario { box-shadow: 0 8px 20px -12px var(--ouro); }
+
+/* Rolar sozinho / Ouvir */
+.leitor { padding: 4px 20px 12px; }
+.leitor-botoes { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 10px; }
+.leitor-botoes .btn { background: var(--surface); border-color: var(--line); font-weight: 600; }
+.leitor-botoes .btn svg { color: var(--accent-text); width: 20px; height: 20px; }
+.leitor-painel { position: fixed; left: 12px; right: 12px; bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 10px); z-index: 25; max-width: 616px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border-radius: 24px;
+  background: var(--surface-2); border: 1px solid rgba(242, 193, 78, .45); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, .5); animation: sobe .2s ease-out; }
+.leitor-painel[hidden], .leitor-botoes[hidden] { display: none; }
+.leitor-painel > .icone { background: var(--accent); color: var(--on-accent); }
+.leitor-vel { display: flex; flex-direction: column; align-items: center; font-size: 12px; color: var(--muted); }
+.leitor-vel div { display: flex; align-items: center; gap: 6px; }
+.leitor-vel .icone { width: 40px; height: 40px; border: 1px solid var(--line); }
+.leitor-vel b { min-width: 22px; text-align: center; font-size: 18px; color: var(--ink); }
+.leitura .vs.lendo { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--ouro); }
+body:has(.leitor-painel:not([hidden])) .view { padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 100px); }
