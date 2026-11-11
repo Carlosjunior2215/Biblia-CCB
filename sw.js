@@ -1,6 +1,6 @@
 // Service worker: guarda o app e a Bíblia inteira no celular para funcionar sem internet.
 // Ao publicar uma versão nova, aumente VERSAO para os celulares baixarem os arquivos novos.
-const VERSAO = 'v6';
+const VERSAO = 'v7';
 const CACHE = `biblia-ccb-${VERSAO}`;
 
 const ARQUIVOS = [
@@ -16,6 +16,7 @@ const ARQUIVOS = [
   'js/sheet.js',
   'js/imagem.js',
   'js/arte.js',
+  'js/voz.js',
   'img/notas.svg',
   'fonts/plus-jakarta-sans-latin-wght-normal.woff2',
   'js/views/inicio.js',

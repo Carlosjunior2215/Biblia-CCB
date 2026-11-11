@@ -2,6 +2,7 @@
 // O áudio usa a voz do próprio celular (speechSynthesis): grátis e, na maioria dos aparelhos, funciona sem internet.
 import { store } from '../store.js';
 import { avisar, $$ } from '../util.js';
+import { temVoz, vozEscolhida, carregarVozes } from '../voz.js';
 
 const VEL_ROLAR = [12, 20, 30, 45, 65]; // pixels por segundo
 const VEL_VOZ = [0.8, 0.9, 1, 1.15, 1.3];
@@ -17,12 +18,6 @@ const IC = {
   mais: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg>',
 };
 
-export const temVoz = () => 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
-
-function vozPt() {
-  const vozes = speechSynthesis.getVoices();
-  return vozes.find((v) => /pt[-_]BR/i.test(v.lang)) || vozes.find((v) => /^pt/i.test(v.lang)) || null;
-}
 
 /** HTML dos botões que ficam logo depois do texto do capítulo. */
 export function botoesLeitor() {
@@ -138,7 +133,7 @@ export function montarLeitor(el, { versos, titulo, proximo }) {
     const minha = geracao;
     const u = new SpeechSynthesisUtterance((i === 0 ? `${titulo}. ` : '') + versos[i]);
     u.lang = 'pt-BR';
-    const v = vozPt();
+    const v = vozEscolhida();
     if (v) u.voice = v;
     u.rate = VEL_VOZ[nivel()];
     u.onend = () => {
@@ -149,9 +144,8 @@ export function montarLeitor(el, { versos, titulo, proximo }) {
   function iniciarOuvir(desde = 0) {
     if (!temVoz()) return;
     parar();
-    speechSynthesis.getVoices(); // alguns celulares só carregam as vozes depois da primeira chamada
     abrirPainel('ouvir');
-    falar(desde);
+    carregarVozes().then(() => falar(desde));
   }
 
   el.querySelector('#b-rolar').addEventListener('click', iniciarRolar);

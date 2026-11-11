@@ -315,3 +315,9 @@ body:has(.leitor-painel:not([hidden])) .view { padding-bottom: calc(var(--tabbar
 .congregacao > div { flex: 1; display: flex; flex-direction: column; gap: 2px; }
 .congregacao strong { font-size: 15px; }
 .congregacao span { font-size: 12px; color: var(--muted); }
+
+/* Escolha da voz */
+.vozes { display: flex; flex-direction: column; gap: 8px; }
+.voz { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: transparent; text-align: left; font-size: 14px; }
+.voz b { color: var(--accent-text); font-size: 12px; }
+.voz[aria-pressed="true"] { border-color: var(--ouro); background: var(--accent-soft); font-weight: 700; }
