@@ -7,6 +7,8 @@ import { arteCapa, ORNAMENTO } from '../arte.js';
 
 // Endereço do app pago que esta Bíblia divulga.
 export const LINK_GEM = 'https://musicaccb.com.br';
+// Site oficial da CCB, onde a pessoa procura a congregação mais perto.
+const LINK_CCB = 'https://www.congregacaocristanobrasil.org.br/';
 
 function saudacao() {
   const h = new Date().getHours();
@@ -62,6 +64,11 @@ export async function telaInicio() {
           <a href="#/buscar">${ICONE.busca}<span>Buscar</span></a>
           <a href="#/salvos">${ICONE.salvo}<span>Salvos</span></a>
         </nav>
+        <a class="congregacao" href="${LINK_CCB}" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+          <div><strong>Encontrar congregação</strong><span>Abre o site oficial da CCB</span></div>
+          ${ICONE.seta}
+        </a>
         <a class="gem" href="${LINK_GEM}" target="_blank" rel="noopener">
           <img class="notas" src="img/notas.svg" alt="">
           <span class="ic">${ICONE.musica}</span>
