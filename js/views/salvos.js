@@ -1,3 +1,4 @@
+import { SIMBOLO } from '../arte.js';
 import { esc, $$, ICONE } from '../util.js';
 import { store, CORES } from '../store.js';
 import { livros, versiculo } from '../dados.js';
@@ -58,7 +59,7 @@ export async function telaSalvos() {
   };
 
   const html = `
-    <header class="topo"><h1>Salvos</h1></header>
+    <header class="topo"><h1>Salvos</h1>${SIMBOLO.salvos}</header>
     <div class="conteudo" style="padding-top:4px;gap:12px">
       <div class="segmento" role="tablist">
         <button role="tab" data-aba="favoritos" aria-selected="${aba === 'favoritos'}">Favoritos</button>

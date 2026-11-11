@@ -8,5 +8,5 @@ export function aplicarPrefs() {
   document.documentElement.dataset.tema = tema;
   document.documentElement.dataset.letra = String(p.letra);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.content = tema === 'escuro' ? '#12161D' : '#1F4E79';
+  if (meta) meta.content = tema === 'escuro' ? '#070d1c' : '#1c2c4c';
 }

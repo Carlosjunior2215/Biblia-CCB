@@ -1,3 +1,4 @@
+import { SIMBOLO } from '../arte.js';
 import { esc, normalizar, $$, ICONE } from '../util.js';
 import { buscar, interpretarReferencia, livro } from '../dados.js';
 
@@ -38,7 +39,7 @@ export async function telaBusca(q) {
   return {
     titulo: 'Buscar',
     html: `
-      <header class="topo"><h1>Buscar</h1></header>
+      <header class="topo"><h1>Buscar</h1>${SIMBOLO.buscar}</header>
       <div class="conteudo" style="padding-top:4px;gap:12px">
         <form class="campo" role="search" id="form">
           ${ICONE.busca}

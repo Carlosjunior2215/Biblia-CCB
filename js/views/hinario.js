@@ -1,3 +1,4 @@
+import { SIMBOLO } from '../arte.js';
 import { esc, normalizar, $$, ICONE } from '../util.js';
 import { store } from '../store.js';
 import { hinos } from '../dados.js';
@@ -42,7 +43,7 @@ export async function telaHinario(q) {
   return {
     titulo: 'Hinário',
     html: `
-      <header class="topo"><h1>Hinário</h1></header>
+      <header class="topo"><h1>Hinário</h1>${SIMBOLO.hinario}</header>
       <div class="conteudo" style="padding-top:4px;gap:12px">
         <form class="campo" role="search" id="form">
           ${ICONE.busca}

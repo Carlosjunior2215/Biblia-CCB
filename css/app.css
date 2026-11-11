@@ -1,46 +1,65 @@
 /* Bíblia CCB — estilos. Cores definidas uma vez como variáveis; o modo escuro só troca as variáveis. */
-:root {
-  --bg: #F7F5F0;
-  --surface: #FFFFFF;
-  --ink: #1B2230;
-  --muted: #566070;
-  --line: #E2DED4;
-  --chip: #ECE8DF;
-  --accent: #1F4E79;
-  --on-accent: #FFFFFF;
-  --accent-soft: #E3ECF5;
-  --accent-text: #1F4E79;
-  --overlay: rgba(10, 14, 20, .35);
-  --mk-amarelo: #FBE7A6;
-  --mk-verde: #C9EBCF;
-  --mk-azul: #CFE2F7;
-  --mk-rosa: #F6D0DF;
-  --mk-laranja: #F9D7B8;
-  --font-ui: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../fonts/plus-jakarta-sans-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Tema "Noite" (padrão): azul-noite e dourado, as mesmas cores do Música CCB. */
+:root,
+:root[data-tema="escuro"] {
+  --bg: #070d1c;
+  --surface: #111b31;
+  --surface-2: #17243f;
+  --ink: #eef2f8;
+  --muted: #93a4c6;
+  --line: #22314f;
+  --chip: #17243f;
+  --accent: #f2c14e;
+  --on-accent: #111d36;
+  --accent-soft: rgba(242, 193, 78, .14);
+  --accent-text: #f2c14e;
+  --ouro: #f2c14e;
+  --overlay: rgba(2, 6, 16, .6);
+  --sombra: 0 1px 0 rgba(255, 255, 255, .04) inset, 0 10px 30px -14px rgba(0, 0, 0, .7);
+  --fundo-arte: radial-gradient(90% 45% at 85% -5%, rgba(42, 63, 110, .85), transparent 65%), radial-gradient(70% 40% at 0% 105%, rgba(242, 193, 78, .12), transparent 70%);
+  --mk-amarelo: rgba(242, 193, 78, .30);
+  --mk-verde: rgba(74, 190, 130, .28);
+  --mk-azul: rgba(110, 160, 240, .30);
+  --mk-rosa: rgba(240, 120, 170, .28);
+  --mk-laranja: rgba(245, 150, 70, .30);
+  --font-ui: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-texto: Literata, Georgia, "Times New Roman", serif;
   --tam-texto: 19px;
-  --radius: 14px;
-  --tabbar-h: 64px;
-  color-scheme: light;
-}
-:root[data-tema="escuro"] {
-  --bg: #12161D;
-  --surface: #1B212B;
-  --ink: #ECEFF3;
-  --muted: #A3ACB9;
-  --line: #2C3440;
-  --chip: #252C37;
-  --accent: #2C5F8F;
-  --on-accent: #FFFFFF;
-  --accent-soft: #22344A;
-  --accent-text: #9CC3EC;
-  --overlay: rgba(0, 0, 0, .55);
-  --mk-amarelo: #5A4A1C;
-  --mk-verde: #1E4A33;
-  --mk-azul: #1E3A5A;
-  --mk-rosa: #5A2440;
-  --mk-laranja: #5A3418;
+  --radius: 16px;
+  --tabbar-h: 66px;
   color-scheme: dark;
+}
+/* Tema "Dia": papel creme, azul-noite e dourado. */
+:root[data-tema="claro"] {
+  --bg: #f6f1e6;
+  --surface: #fffdf8;
+  --surface-2: #f3ecdc;
+  --ink: #111d36;
+  --muted: #56627c;
+  --line: #e6dcc7;
+  --chip: #efe7d5;
+  --accent: #1c2c4c;
+  --on-accent: #fdf8e8;
+  --accent-soft: #faeec7;
+  --accent-text: #7d520a;
+  --ouro: #c58a17;
+  --overlay: rgba(10, 14, 28, .4);
+  --sombra: 0 10px 30px -18px rgba(28, 44, 76, .35);
+  --fundo-arte: radial-gradient(90% 40% at 85% -5%, rgba(242, 193, 78, .22), transparent 65%);
+  --mk-amarelo: #f8e3a0;
+  --mk-verde: #c9ebcf;
+  --mk-azul: #cfe0f7;
+  --mk-rosa: #f6d0df;
+  --mk-laranja: #f9d7b8;
+  color-scheme: light;
 }
 :root[data-letra="1"] { --tam-texto: 16px; }
 :root[data-letra="2"] { --tam-texto: 19px; }
@@ -50,7 +69,9 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: var(--fundo-arte);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-ui);
   font-size: 16px;
@@ -73,17 +94,22 @@ svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width:
   display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
   max-width: 640px; margin: 0 auto;
   padding: 4px 4px env(safe-area-inset-bottom);
-  background: var(--surface); border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 88%, transparent); border-top: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
 }
 .tabbar a { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 0 10px; text-decoration: none; color: var(--muted); font-size: 11px; font-weight: 500; min-height: 56px; }
-.tabbar a[aria-current="page"] { color: var(--accent-text); font-weight: 600; }
+.tabbar a { position: relative; }
+.tabbar a[aria-current="page"] { color: var(--accent-text); font-weight: 700; }
+.tabbar a[aria-current="page"]::before { content: ""; position: absolute; top: 0; width: 28px; height: 3px; border-radius: 0 0 3px 3px; background: var(--ouro); box-shadow: 0 0 12px var(--ouro); }
 .tabbar a[aria-current="page"] svg { stroke-width: 2.2; }
 
 /* Cabeçalhos */
-.topo { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 18px 20px 8px; }
-.topo h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -.3px; }
+.topo { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 22px 20px 10px; min-height: 84px; }
+.topo h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -.5px; }
+.topo h1::after { content: ""; display: block; width: 32px; height: 3px; margin-top: 8px; border-radius: 2px; background: linear-gradient(90deg, var(--ouro), transparent); }
+.topo .simbolo { position: absolute; right: 18px; top: 14px; width: 64px; height: 64px; opacity: .55; pointer-events: none; }
 .topo .sub { font-size: 13px; color: var(--muted); }
-.barra { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 8px 8px; background: var(--bg); border-bottom: 1px solid var(--line); }
+.barra { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 8px 8px; background: color-mix(in srgb, var(--bg) 85%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
 .barra h1 { margin: 0; font-size: 17px; font-weight: 600; }
 
 /* Botões */
@@ -102,8 +128,8 @@ svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width:
 .segmento button[aria-selected="true"] { background: var(--surface); color: var(--ink); font-weight: 600; }
 
 .conteudo { display: flex; flex-direction: column; gap: 16px; padding: 12px 20px; }
-.cartao { display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
-.rotulo { font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); }
+.cartao { display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--sombra); }
+.rotulo { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent-text); }
 .texto-biblico { font-family: var(--font-texto); }
 
 /* Início */
@@ -116,7 +142,8 @@ svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width:
 .vdia .linha { display: flex; align-items: center; justify-content: space-between; }
 .vdia .ref { font-size: 14px; font-weight: 600; color: var(--accent-text); text-decoration: none; }
 .atalhos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.atalhos a { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 8px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); text-decoration: none; font-size: 13px; font-weight: 500; }
+.atalhos a { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 16px 8px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--sombra); text-decoration: none; font-size: 13px; font-weight: 600; }
+.atalhos a svg { width: 44px; height: 44px; padding: 11px; border-radius: 22px; background: var(--accent-soft); color: var(--accent-text); }
 .gem { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: var(--radius); border: 1px dashed var(--line); text-decoration: none; }
 .gem .ic { width: 40px; height: 40px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-text); display: flex; align-items: center; justify-content: center; }
 .gem > div { flex: 1; display: flex; flex-direction: column; gap: 2px; }
@@ -225,3 +252,34 @@ mark { background: var(--mk-amarelo); color: inherit; border-radius: 3px; paddin
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 @media (min-width: 641px) { .app { border-left: 1px solid var(--line); border-right: 1px solid var(--line); } }
 body.com-folha .view { padding-bottom: 380px; }
+
+/* ---------- Visual "Concerto": capa, enfeites e símbolos ---------- */
+.arte { width: 100%; height: auto; fill: initial; stroke: none; }
+.capa { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 14px; padding: 20px 20px 18px; border-radius: 26px; color: #eef2f8;
+  background: radial-gradient(120% 80% at 50% 0%, #2f456e 0%, #1c2c4c 45%, #0b1630 100%); border: 1px solid rgba(242, 193, 78, .25); box-shadow: 0 18px 40px -18px rgba(7, 13, 28, .8); }
+.capa .cab { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; position: relative; z-index: 1; }
+.capa .sub { font-size: 14px; font-weight: 600; color: #f2c14e; }
+.capa h1 { margin: 2px 0 0; font-size: 32px; font-weight: 800; letter-spacing: -.6px; }
+.capa p.lema { margin: 4px 0 0; font-size: 14px; color: #c5d0e5; }
+.capa .icone { color: #eef2f8; border-color: rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .06); }
+.capa .arte { margin: -8px auto -6px; max-width: 300px; }
+.capa .continuar { position: relative; z-index: 1; background: linear-gradient(135deg, #f5dc8c, #f2c14e 45%, #e2a62a); color: #111d36; box-shadow: 0 10px 24px -10px rgba(242, 193, 78, .6); }
+.capa .continuar .ic { background: rgba(17, 29, 54, .12); }
+.ornamento { display: flex; align-items: center; gap: 8px; color: var(--ouro); }
+.ornamento i { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--ouro), transparent); opacity: .5; }
+.ornamento svg { width: 24px; height: 12px; }
+.vdia { position: relative; overflow: hidden; }
+.vdia::before { content: "\201C"; position: absolute; right: 14px; top: -18px; font: 700 120px/1 Georgia, serif; color: var(--ouro); opacity: .14; pointer-events: none; }
+.vdia .ref { color: var(--accent-text); }
+.gem { position: relative; overflow: hidden; border: 1px solid rgba(242, 193, 78, .3); background: linear-gradient(135deg, var(--surface), var(--surface-2)); }
+.gem .ic { background: var(--accent-soft); color: var(--accent-text); }
+.gem .notas { position: absolute; right: 36px; bottom: -14px; width: 92px; opacity: .14; pointer-events: none; }
+.cap-titulo { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 22px 20px 4px; text-align: center; }
+.cap-titulo span { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-text); }
+.cap-titulo strong { font-family: var(--font-texto); font-size: 52px; font-weight: 400; line-height: 1.1; }
+.cap-titulo .ornamento { width: 140px; }
+.segmento button[aria-selected="true"] { box-shadow: var(--sombra); }
+:root:not([data-tema="claro"]) .segmento button[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
+.grade a.atual { box-shadow: 0 6px 16px -8px var(--ouro); }
+.hino-linha .num { background: var(--accent-soft); }
+.btn.primario, .acoes button.primario { box-shadow: 0 8px 20px -12px var(--ouro); }

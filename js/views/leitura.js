@@ -4,6 +4,7 @@ import { livros, livro as getLivro, capitulo, referencia } from '../dados.js';
 import { abrirFolha, fecharFolha } from '../sheet.js';
 import { abrirOpcoesLeitura } from './opcoes.js';
 import { abrirCompartilhar } from './compartilhar.js';
+import { ORNAMENTO } from '../arte.js';
 
 /** Capítulo anterior/próximo, passando de um livro para o outro. */
 async function vizinhos(id, cap) {
@@ -52,6 +53,7 @@ export async function telaLeitura(id, cap, vsDestaque) {
         <a class="pilula" href="#/livros/${id}" aria-label="Trocar livro ou capítulo. Atual: ${esc(l.nome)} ${cap}">${esc(l.nome)} ${cap} ${ICONE.baixo}</a>
         <button class="icone" id="aa" aria-label="Tamanho da letra e aparência" style="font-size:17px;font-weight:600">Aa</button>
       </header>
+      <div class="cap-titulo" aria-hidden="true"><span>${esc(l.nome)}</span><strong>${cap}</strong>${ORNAMENTO}</div>
       <article class="leitura" lang="pt-BR" aria-label="${esc(l.nome)} capítulo ${cap}">${htmlVersos}</article>
       <footer class="rodape-cap">
         <a href="${viz.ant ? `#/ler/${viz.ant.livro}/${viz.ant.cap}` : '#/'}" aria-disabled="${!viz.ant}">${ICONE.voltar}${esc(rotuloCurto(viz.ant, id))}</a>

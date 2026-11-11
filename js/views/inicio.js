@@ -3,6 +3,7 @@ import { store } from '../store.js';
 import { livro, versiculoDoDia } from '../dados.js';
 import { abrirOpcoesLeitura } from './opcoes.js';
 import { abrirCompartilhar } from './compartilhar.js';
+import { arteCapa, ORNAMENTO } from '../arte.js';
 
 // Endereço do app pago que esta Bíblia divulga.
 export const LINK_GEM = 'https://musicaccb.com.br';
@@ -35,14 +36,18 @@ export async function telaInicio() {
   return {
     titulo: 'Início',
     html: `
-      <header class="topo">
-        <div><div class="sub">${saudacao()}</div><h1>Bíblia CCB</h1></div>
-        <button class="icone borda" id="ajustes" aria-label="Tamanho da letra e tema">${ICONE.ajustes}</button>
-      </header>
-      <div class="conteudo">
-        ${continuar}
+      <div class="conteudo" style="padding-top:16px">
+        <section class="capa" aria-label="Bíblia CCB">
+          <div class="cab">
+            <div><div class="sub">${saudacao()}</div><h1>Bíblia CCB</h1><p class="lema">A Palavra de Deus sempre com você</p></div>
+            <button class="icone borda" id="ajustes" aria-label="Tamanho da letra e tema">${ICONE.ajustes}</button>
+          </div>
+          ${arteCapa()}
+          ${continuar}
+        </section>
         <section class="cartao vdia" aria-labelledby="vd-titulo">
           <span class="rotulo" id="vd-titulo">Versículo do dia</span>
+          ${ORNAMENTO}
           <p class="texto-biblico">“${esc(vd.texto)}”</p>
           <div class="linha">
             <a class="ref" href="#/ler/${vd.livro}/${vd.cap}/${vd.vs}">${esc(refVd)}</a>
@@ -58,6 +63,7 @@ export async function telaInicio() {
           <a href="#/salvos">${ICONE.salvo}<span>Salvos</span></a>
         </nav>
         <a class="gem" href="${LINK_GEM}" target="_blank" rel="noopener">
+          <img class="notas" src="img/notas.svg" alt="">
           <span class="ic">${ICONE.musica}</span>
           <div><strong>Você é encarregado de música?</strong><span>Conheça o CCB Gestão do GEM</span></div>
           ${ICONE.seta}

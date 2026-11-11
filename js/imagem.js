@@ -1,9 +1,9 @@
 // Gera a imagem do versículo (1080 x 1350, formato bom para WhatsApp/Status) e compartilha.
 
 export const FUNDOS = [
-  { id: 'azul', nome: 'Azul', cor: '#1F4E79', cor2: '#163A5C' },
-  { id: 'verde', nome: 'Verde', cor: '#2F5D46', cor2: '#224634' },
-  { id: 'grafite', nome: 'Grafite', cor: '#2B2F36', cor2: '#1C1F24' },
+  { id: 'azul', nome: 'Noite', cor: '#2f456e', cor2: '#070d1c' },
+  { id: 'verde', nome: 'Verde', cor: '#2F5D46', cor2: '#0f241a' },
+  { id: 'grafite', nome: 'Vinho', cor: '#5a2433', cor2: '#1c0a10' },
 ];
 
 const L = 1080;
@@ -38,11 +38,19 @@ export function desenhar(canvas, { texto, ref }, fundoId = 'azul') {
   g.addColorStop(1, f.cor2);
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, L, A);
+  const luz = ctx.createRadialGradient(L / 2, 0, 0, L / 2, 0, L * 0.9);
+  luz.addColorStop(0, 'rgba(242,193,78,.28)');
+  luz.addColorStop(1, 'rgba(242,193,78,0)');
+  ctx.fillStyle = luz;
+  ctx.fillRect(0, 0, L, A);
+  ctx.strokeStyle = 'rgba(242,193,78,.45)';
+  ctx.lineWidth = 3;
+  ctx.strokeRect(44, 44, L - 88, A - 88);
 
   const margem = 110;
   const largura = L - margem * 2;
   const serif = 'Literata, Georgia, "Times New Roman", serif';
-  const sans = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+  const sans = '"Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
 
   // Ajusta o tamanho da letra para o texto caber.
   const citacao = `“${texto}”`;
@@ -57,7 +65,7 @@ export function desenhar(canvas, { texto, ref }, fundoId = 'azul') {
   let y = (A - alturaTexto) / 2 - 20;
 
   // Ícone de livro aberto no topo
-  ctx.strokeStyle = 'rgba(255,255,255,.55)';
+  ctx.strokeStyle = '#f2c14e';
   ctx.lineWidth = 5;
   ctx.lineJoin = 'round';
   const ix = margem;
@@ -81,6 +89,8 @@ export function desenhar(canvas, { texto, ref }, fundoId = 'azul') {
     y += tam * 1.45;
   }
 
+  ctx.fillStyle = '#f2c14e';
+  ctx.fillRect(margem, A - 270, 70, 5);
   ctx.font = `700 44px ${sans}`;
   ctx.fillText(ref, margem, A - 240);
   ctx.fillStyle = 'rgba(255,255,255,.75)';

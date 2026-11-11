@@ -5,7 +5,7 @@ import { $$ } from '../util.js';
 import { aplicarPrefs } from '../tema.js';
 
 const LETRAS = ['Pequena', 'Normal', 'Grande', 'Muito grande'];
-const TEMAS = [['auto', 'Automático'], ['claro', 'Claro'], ['escuro', 'Escuro']];
+const TEMAS = [['escuro', 'Noite'], ['claro', 'Dia'], ['auto', 'Automático']];
 
 export function abrirOpcoesLeitura() {
   const p = store.prefs();

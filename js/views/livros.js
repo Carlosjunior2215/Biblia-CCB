@@ -1,3 +1,4 @@
+import { SIMBOLO } from '../arte.js';
 import { esc, $$ } from '../util.js';
 import { store } from '../store.js';
 import { livros } from '../dados.js';
@@ -44,7 +45,7 @@ export async function telaLivros(aberto) {
     titulo: 'Livros',
     rolarPara: aberto ? { sel: '.livro.aberto', block: 'start' } : null,
     html: `
-      <header class="topo"><h1>Livros</h1></header>
+      <header class="topo"><h1>Livros</h1>${SIMBOLO.livros}</header>
       <div style="padding:4px 20px 12px">
         <div class="segmento" role="tablist">
           <button role="tab" data-t="AT" aria-selected="${abaAtual === 'AT'}">Antigo Testamento</button>
