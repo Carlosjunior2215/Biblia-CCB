@@ -58,7 +58,7 @@ async function montarVozes(sheet) {
   await carregarVozes();
   const lista = vozesPt();
   if (!lista.length) {
-    box.innerHTML = `<p class="aviso">Este aparelho não tem voz em português instalada. No Android: Configurações › Acessibilidade › Conversão de texto em voz › baixe "Português (Brasil)". No Windows: Configurações › Hora e idioma › Fala › Adicionar vozes.</p>`;
+    box.innerHTML = `<p class="aviso">Este aparelho não tem voz em português do Brasil instalada. No Android: Configurações › Acessibilidade › Conversão de texto em voz › baixe "Português (Brasil)". No Windows: Configurações › Hora e idioma › Fala › Adicionar vozes.</p>`;
     return;
   }
   const atual = vozEscolhida();
