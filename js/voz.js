@@ -19,10 +19,10 @@ export function carregarVozes() {
   });
 }
 
-/** Vozes em português, com as do Brasil e as mais naturais primeiro. */
+/** Só vozes do português do Brasil (decisão do dono: sem Portugal), as mais naturais primeiro. */
 export function vozesPt(vozes = temVoz() ? speechSynthesis.getVoices() : []) {
-  const nota = (v) => (/pt[-_]BR/i.test(v.lang) ? 2 : 0) + (BOAS.test(v.name) ? 1 : 0);
-  return vozes.filter((v) => /^pt/i.test(v.lang)).sort((a, b) => nota(b) - nota(a));
+  const nota = (v) => (BOAS.test(v.name) ? 1 : 0) + (v.localService ? 0.5 : 0);
+  return vozes.filter((v) => /^pt[-_]BR$/i.test(v.lang)).sort((a, b) => nota(b) - nota(a));
 }
 
 /** A voz salva pela pessoa ou, se não houver, a melhor em português. */
@@ -45,7 +45,7 @@ export function nomeVoz(v) {
 export function falarExemplo(v) {
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance('O Senhor é o meu pastor, nada me faltará.');
-  u.lang = v ? v.lang : 'pt-BR';
+  u.lang = 'pt-BR';
   if (v) u.voice = v;
   speechSynthesis.speak(u);
 }
