@@ -1,5 +1,5 @@
 // Vozes do celular/computador para ler a Bíblia em voz alta.
-// Cada aparelho tem as suas; aqui listamos as do português do Brasil e do inglês e escolhemos a salva pela pessoa.
+// Cada aparelho tem as suas; aqui listamos só as de português e escolhemos a salva pela pessoa.
 import { store } from './store.js';
 
 export const temVoz = () => 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
@@ -19,16 +19,11 @@ export function carregarVozes() {
   });
 }
 
-const BR = /^pt[-_]BR$/i;
-const EN = /^en([-_]|$)/i;
-
-/** Vozes do português do Brasil (sem Portugal) e do inglês, Brasil primeiro e as mais naturais na frente. */
+/** Só vozes do português do Brasil (decisão do dono: sem Portugal), as mais naturais primeiro. */
 export function vozesPt(vozes = temVoz() ? speechSynthesis.getVoices() : []) {
-  const nota = (v) => (BR.test(v.lang) ? 10 : 0) + (BOAS.test(v.name) ? 1 : 0) + (v.localService ? 0.5 : 0);
-  return vozes.filter((v) => BR.test(v.lang) || EN.test(v.lang)).sort((a, b) => nota(b) - nota(a));
+  const nota = (v) => (BOAS.test(v.name) ? 1 : 0) + (v.localService ? 0.5 : 0);
+  return vozes.filter((v) => /^pt[-_]BR$/i.test(v.lang)).sort((a, b) => nota(b) - nota(a));
 }
-
-export const ehIngles = (v) => !!v && EN.test(v.lang);
 
 /** A voz salva pela pessoa ou, se não houver, a melhor em português. */
 export function vozEscolhida() {
@@ -37,32 +32,20 @@ export function vozEscolhida() {
   return lista.find((v) => v.voiceURI === salva) || lista[0] || null;
 }
 
-const PAISES_EN = { US: 'EUA', GB: 'Reino Unido', AU: 'Austrália', IN: 'Índia', CA: 'Canadá', IE: 'Irlanda', ZA: 'África do Sul', NZ: 'Nova Zelândia' };
-
 /** Nome curto para mostrar na tela. */
 export function nomeVoz(v) {
-  const regiao = (v.lang.split(/[-_]/)[1] || '').toUpperCase();
-  const idioma = ehIngles(v) ? `Inglês${PAISES_EN[regiao] ? ` (${PAISES_EN[regiao]})` : ''}` : 'Brasil';
-  const nome = v.name
-    .replace(/^(Microsoft|Google)\s*/i, '')
-    .replace(/\s*-\s*(Portuguese|English).*$/i, '')
-    .replace(/\s*\(.*\)\s*$/, '')
-    .trim();
-  const limpo = ehIngles(v)
-    ? nome.replace(/\b(UK|US|GB)\b|\bEnglish\b/gi, '').replace(/\bFemale\b/i, 'feminina').replace(/\bMale\b/i, 'masculina').replace(/\s+/g, ' ').trim()
-    : nome;
-  const n = limpo || (ehIngles(v) ? 'Voz' : v.name);
-  const comIdioma = /brasil|ingl/i.test(n) ? n : `${n} · ${idioma}`;
-  return `${comIdioma.charAt(0).toUpperCase()}${comIdioma.slice(1)}${v.localService ? '' : ' · precisa de internet'}`;
+  const pais = /pt[-_]BR/i.test(v.lang) ? 'Brasil' : /pt[-_]PT/i.test(v.lang) ? 'Portugal' : v.lang;
+  const nome = v.name.replace(/^(Microsoft|Google)\s*/i, '').replace(/\s*-\s*Portuguese.*$/i, '').replace(/\s*\(.*\)\s*$/, '').trim();
+  const n = nome || v.name;
+  const comPais = new RegExp(pais, 'i').test(n) ? n : `${n} · ${pais}`;
+  return `${comPais.charAt(0).toUpperCase()}${comPais.slice(1)}${v.localService ? '' : ' · precisa de internet'}`;
 }
 
 /** Fala um exemplo curto com a voz informada. */
 export function falarExemplo(v) {
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(
-    ehIngles(v) ? 'The Lord is my shepherd; I shall not want.' : 'O Senhor é o meu pastor, nada me faltará.',
-  );
-  u.lang = v ? v.lang : 'pt-BR';
+  const u = new SpeechSynthesisUtterance('O Senhor é o meu pastor, nada me faltará.');
+  u.lang = 'pt-BR';
   if (v) u.voice = v;
   speechSynthesis.speak(u);
 }
