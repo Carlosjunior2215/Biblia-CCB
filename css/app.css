@@ -10,21 +10,21 @@
 /* Tema "Noite" (padrão): azul-noite e dourado, as mesmas cores do Música CCB. */
 :root,
 :root[data-tema="escuro"] {
-  --bg: #070d1c;
-  --surface: #111b31;
-  --surface-2: #17243f;
-  --ink: #eef2f8;
-  --muted: #93a4c6;
-  --line: #22314f;
-  --chip: #17243f;
+  --bg: #1a2a4a;
+  --surface: #25395f;
+  --surface-2: #2d446e;
+  --ink: #f4f7fc;
+  --muted: #bccae4;
+  --line: #3a5282;
+  --chip: #2f4672;
   --accent: #f2c14e;
   --on-accent: #111d36;
   --accent-soft: rgba(242, 193, 78, .14);
   --accent-text: #f2c14e;
   --ouro: #f2c14e;
-  --overlay: rgba(2, 6, 16, .6);
-  --sombra: 0 1px 0 rgba(255, 255, 255, .04) inset, 0 10px 30px -14px rgba(0, 0, 0, .7);
-  --fundo-arte: radial-gradient(90% 45% at 85% -5%, rgba(42, 63, 110, .85), transparent 65%), radial-gradient(70% 40% at 0% 105%, rgba(242, 193, 78, .12), transparent 70%);
+  --overlay: rgba(6, 12, 28, .5);
+  --sombra: 0 1px 0 rgba(255, 255, 255, .06) inset, 0 10px 26px -14px rgba(5, 10, 25, .6);
+  --fundo-arte: radial-gradient(90% 45% at 85% -5%, rgba(90, 125, 190, .55), transparent 65%), radial-gradient(70% 40% at 0% 105%, rgba(242, 193, 78, .14), transparent 70%);
   --mk-amarelo: rgba(242, 193, 78, .30);
   --mk-verde: rgba(74, 190, 130, .28);
   --mk-azul: rgba(110, 160, 240, .30);
@@ -256,11 +256,11 @@ body.com-folha .view { padding-bottom: 380px; }
 /* ---------- Visual "Concerto": capa, enfeites e símbolos ---------- */
 .arte { width: 100%; height: auto; fill: initial; stroke: none; }
 .capa { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 14px; padding: 20px 20px 18px; border-radius: 26px; color: #eef2f8;
-  background: radial-gradient(120% 80% at 50% 0%, #2f456e 0%, #1c2c4c 45%, #0b1630 100%); border: 1px solid rgba(242, 193, 78, .25); box-shadow: 0 18px 40px -18px rgba(7, 13, 28, .8); }
+  background: radial-gradient(120% 80% at 50% 0%, #5675ad 0%, #3a5487 45%, #2a3f68 100%); border: 1px solid rgba(242, 193, 78, .35); box-shadow: 0 18px 40px -18px rgba(7, 13, 28, .8); }
 .capa .cab { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; position: relative; z-index: 1; }
 .capa .sub { font-size: 14px; font-weight: 600; color: #f2c14e; }
 .capa h1 { margin: 2px 0 0; font-size: 32px; font-weight: 800; letter-spacing: -.6px; }
-.capa p.lema { margin: 4px 0 0; font-size: 14px; color: #c5d0e5; }
+.capa p.lema { margin: 4px 0 0; font-size: 14px; color: #dbe3f1; }
 .capa .icone { color: #eef2f8; border-color: rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .06); }
 .capa .arte { margin: -8px auto -6px; max-width: 300px; }
 .capa .continuar { position: relative; z-index: 1; background: linear-gradient(135deg, #f5dc8c, #f2c14e 45%, #e2a62a); color: #111d36; box-shadow: 0 10px 24px -10px rgba(242, 193, 78, .6); }

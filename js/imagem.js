@@ -1,7 +1,7 @@
 // Gera a imagem do versículo (1080 x 1350, formato bom para WhatsApp/Status) e compartilha.
 
 export const FUNDOS = [
-  { id: 'azul', nome: 'Noite', cor: '#2f456e', cor2: '#070d1c' },
+  { id: 'azul', nome: 'Noite', cor: '#4c6aa3', cor2: '#1c2c4c' },
   { id: 'verde', nome: 'Verde', cor: '#2F5D46', cor2: '#0f241a' },
   { id: 'grafite', nome: 'Vinho', cor: '#5a2433', cor2: '#1c0a10' },
 ];
