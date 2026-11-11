@@ -58,7 +58,7 @@ async function montarVozes(sheet) {
   await carregarVozes();
   const lista = vozesPt();
   if (!lista.length) {
-    box.innerHTML = `<p class="aviso">Este aparelho não tem voz em português do Brasil instalada. No Android: Configurações › Acessibilidade › Conversão de texto em voz › baixe "Português (Brasil)". No Windows: Configurações › Hora e idioma › Fala › Adicionar vozes.</p>`;
+    box.innerHTML = `<p class="aviso">Este aparelho não tem voz em português do Brasil nem em inglês instalada. No Android: Configurações › Acessibilidade › Conversão de texto em voz › baixe "Português (Brasil)". No Windows: Configurações › Hora e idioma › Fala › Adicionar vozes.</p>`;
     return;
   }
   const atual = vozEscolhida();
@@ -68,7 +68,7 @@ async function montarVozes(sheet) {
         (v, i) => `<button class="voz" data-i="${i}" aria-pressed="${v === atual}">
           <span>${esc(nomeVoz(v))}</span><b aria-hidden="true">▶</b></button>`,
       )
-      .join('') + `<p class="aviso">Toque numa voz para ouvir um exemplo; ela fica escolhida. As vozes dependem do aparelho.</p>`;
+      .join('') + `<p class="aviso">Toque numa voz para ouvir um exemplo; ela fica escolhida. As vozes dependem do aparelho. A Bíblia está em português: a voz em inglês lê esse texto com sotaque inglês.</p>`;
   $$('.voz', box).forEach((b) =>
     b.addEventListener('click', () => {
       const v = lista[+b.dataset.i];
