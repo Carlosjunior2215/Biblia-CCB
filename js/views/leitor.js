@@ -132,8 +132,8 @@ export function montarLeitor(el, { versos, titulo, proximo }) {
     }
     const minha = geracao;
     const u = new SpeechSynthesisUtterance((i === 0 ? `${titulo}. ` : '') + versos[i]);
+    u.lang = 'pt-BR';
     const v = vozEscolhida();
-    u.lang = v ? v.lang : 'pt-BR';
     if (v) u.voice = v;
     u.rate = VEL_VOZ[nivel()];
     u.onend = () => {
