@@ -1,6 +1,6 @@
 // Service worker: guarda o app e a Bíblia inteira no celular para funcionar sem internet.
 // Ao publicar uma versão nova, aumente VERSAO para os celulares baixarem os arquivos novos.
-const VERSAO = 'v4';
+const VERSAO = 'v5';
 const CACHE = `biblia-ccb-${VERSAO}`;
 
 const ARQUIVOS = [
@@ -30,6 +30,7 @@ const ARQUIVOS = [
   'js/views/sobre.js',
   'data/livros.json',
   'data/hinos.json',
+  'data/resumos/livros.json',
   'icons/icon.svg',
   'icons/icon-192.png',
   'icons/icon-512.png',
@@ -44,6 +45,9 @@ self.addEventListener('install', (event) => {
       // Baixa os 66 livros (≈4 MB) para a leitura e a busca funcionarem offline.
       const livros = await (await fetch('data/livros.json')).json();
       await cache.addAll(livros.map((l) => `data/biblia/${l.id}.json`));
+      // Resumos dos capítulos que já foram escritos.
+      const comResumo = await (await fetch('data/resumos/livros.json')).json();
+      await cache.addAll(comResumo.map((id) => `data/resumos/${id}.json`));
       await self.skipWaiting();
     })(),
   );

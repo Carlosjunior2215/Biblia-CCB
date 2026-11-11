@@ -300,3 +300,11 @@ body.com-folha .view { padding-bottom: 380px; }
 .leitor-vel b { min-width: 22px; text-align: center; font-size: 18px; color: var(--ink); }
 .leitura .vs.lendo { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--ouro); }
 body:has(.leitor-painel:not([hidden])) .view { padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 100px); }
+
+/* Resumo do capítulo */
+.resumo { margin: 4px 20px 12px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--sombra); }
+.resumo summary { list-style: none; display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 16px; font-size: 14px; font-weight: 700; color: var(--accent-text); cursor: pointer; }
+.resumo summary::-webkit-details-marker { display: none; }
+.resumo summary::after { content: "+"; font-size: 20px; font-weight: 400; }
+.resumo[open] summary::after { content: "−"; }
+.resumo p { margin: 0; padding: 0 16px 16px; font-size: 15px; line-height: 1.6; color: var(--ink); }
