@@ -183,3 +183,18 @@ export async function hinos() {
   if (!hinosCache) hinosCache = await json('data/hinos.json');
   return hinosCache;
 }
+
+// Resumos dos capítulos (escritos para o app). data/resumos/livros.json lista os livros que já têm resumo.
+let resumosIndice = null;
+const resumosCache = new Map();
+export async function resumo(id, cap) {
+  try {
+    if (!resumosIndice) resumosIndice = await json('data/resumos/livros.json');
+    if (!resumosIndice.includes(id)) return null;
+    if (!resumosCache.has(id)) resumosCache.set(id, json(`data/resumos/${encodeURIComponent(id)}.json`));
+    return (await resumosCache.get(id))[cap - 1] || null;
+  } catch {
+    resumosIndice = null;
+    return null;
+  }
+}

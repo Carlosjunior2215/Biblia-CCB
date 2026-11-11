@@ -34,7 +34,7 @@ export const CORES = [
 export const store = {
   // Preferências: tamanho da letra (1 a 4) e tema ('auto' | 'claro' | 'escuro').
   prefs() {
-    return { letra: 2, tema: 'auto', ...ler('prefs', {}) };
+    return { letra: 2, tema: 'escuro', ...ler('prefs', {}) };
   },
   salvarPrefs(p) {
     gravar('prefs', { ...this.prefs(), ...p });

@@ -1,6 +1,6 @@
 // Service worker: guarda o app e a Bíblia inteira no celular para funcionar sem internet.
 // Ao publicar uma versão nova, aumente VERSAO para os celulares baixarem os arquivos novos.
-const VERSAO = 'v1';
+const VERSAO = 'v6';
 const CACHE = `biblia-ccb-${VERSAO}`;
 
 const ARQUIVOS = [
@@ -15,17 +15,22 @@ const ARQUIVOS = [
   'js/dados.js',
   'js/sheet.js',
   'js/imagem.js',
+  'js/arte.js',
+  'img/notas.svg',
+  'fonts/plus-jakarta-sans-latin-wght-normal.woff2',
   'js/views/inicio.js',
   'js/views/opcoes.js',
   'js/views/compartilhar.js',
   'js/views/livros.js',
   'js/views/leitura.js',
+  'js/views/leitor.js',
   'js/views/busca.js',
   'js/views/salvos.js',
   'js/views/hinario.js',
   'js/views/sobre.js',
   'data/livros.json',
   'data/hinos.json',
+  'data/resumos/livros.json',
   'icons/icon.svg',
   'icons/icon-192.png',
   'icons/icon-512.png',
@@ -40,6 +45,9 @@ self.addEventListener('install', (event) => {
       // Baixa os 66 livros (≈4 MB) para a leitura e a busca funcionarem offline.
       const livros = await (await fetch('data/livros.json')).json();
       await cache.addAll(livros.map((l) => `data/biblia/${l.id}.json`));
+      // Resumos dos capítulos que já foram escritos.
+      const comResumo = await (await fetch('data/resumos/livros.json')).json();
+      await cache.addAll(comResumo.map((id) => `data/resumos/${id}.json`));
       await self.skipWaiting();
     })(),
   );

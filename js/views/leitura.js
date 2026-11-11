@@ -1,9 +1,11 @@
 import { esc, avisar, copiarTexto, $$, ICONE } from '../util.js';
 import { store, CORES, chaveVerso } from '../store.js';
-import { livros, livro as getLivro, capitulo, referencia } from '../dados.js';
+import { livros, livro as getLivro, capitulo, referencia, resumo } from '../dados.js';
 import { abrirFolha, fecharFolha } from '../sheet.js';
 import { abrirOpcoesLeitura } from './opcoes.js';
 import { abrirCompartilhar } from './compartilhar.js';
+import { ORNAMENTO } from '../arte.js';
+import { botoesLeitor, montarLeitor } from './leitor.js';
 
 /** Capítulo anterior/próximo, passando de um livro para o outro. */
 async function vizinhos(id, cap) {
@@ -27,7 +29,7 @@ export async function telaLeitura(id, cap, vsDestaque) {
     return null;
   }
   cap = Math.min(Math.max(cap, 1), l.caps);
-  const [versos, viz] = await Promise.all([capitulo(id, cap), vizinhos(id, cap)]);
+  const [versos, viz, textoResumo] = await Promise.all([capitulo(id, cap), vizinhos(id, cap), resumo(id, cap)]);
   store.salvarUltimo(id, cap);
 
   const marcas = store.marcas();
@@ -52,6 +54,9 @@ export async function telaLeitura(id, cap, vsDestaque) {
         <a class="pilula" href="#/livros/${id}" aria-label="Trocar livro ou capítulo. Atual: ${esc(l.nome)} ${cap}">${esc(l.nome)} ${cap} ${ICONE.baixo}</a>
         <button class="icone" id="aa" aria-label="Tamanho da letra e aparência" style="font-size:17px;font-weight:600">Aa</button>
       </header>
+      <div class="cap-titulo" aria-hidden="true"><span>${esc(l.nome)}</span><strong>${cap}</strong>${ORNAMENTO}</div>
+      ${textoResumo ? `<details class="resumo"><summary>Resumo do capítulo</summary><p>${esc(textoResumo)}</p></details>` : ''}
+      ${botoesLeitor()}
       <article class="leitura" lang="pt-BR" aria-label="${esc(l.nome)} capítulo ${cap}">${htmlVersos}</article>
       <footer class="rodape-cap">
         <a href="${viz.ant ? `#/ler/${viz.ant.livro}/${viz.ant.cap}` : '#/'}" aria-disabled="${!viz.ant}">${ICONE.voltar}${esc(rotuloCurto(viz.ant, id))}</a>
@@ -60,6 +65,11 @@ export async function telaLeitura(id, cap, vsDestaque) {
       </footer>`,
     montar(el) {
       el.querySelector('#aa').addEventListener('click', () => abrirOpcoesLeitura());
+      montarLeitor(el, {
+        versos,
+        titulo: `${l.nome}, capítulo ${cap}`,
+        proximo: viz.prox ? `#/ler/${viz.prox.livro}/${viz.prox.cap}` : null,
+      });
 
       const bLido = el.querySelector('#lido');
       bLido.addEventListener('click', () => {

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Bíblia CCB</title>
   <meta name="description" content="Bíblia gratuita, sem login e que funciona sem internet. Leia, marque, favorite e compartilhe versículos.">
-  <meta name="theme-color" content="#1F4E79">
+  <meta name="theme-color" content="#1a2a4a">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -15,7 +15,7 @@
   <script>
     // Aplica o tema antes de desenhar a página, para não piscar branco no modo escuro.
     try {
-      var t = JSON.parse(localStorage.getItem('bccb:prefs') || '{}').tema || 'auto';
+      var t = JSON.parse(localStorage.getItem('bccb:prefs') || '{}').tema || 'escuro';
       if (t === 'auto') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro';
       document.documentElement.dataset.tema = t;
     } catch (e) {}
